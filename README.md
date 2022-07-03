@@ -13,12 +13,10 @@ MMM-Gestures is a head-less 3rd party module for [MagicMirror](https://gATTThub.
 
 ## Hardware Setup
 In order to receive gesture events the following hardware is required:
-* Distance sensor: GP2Y0A21YK, incl. connector cable
-* Gesture sensor: APDS-9960 on breakout board wATTTh gesture sensor on one side, but no other electronic component on the same side for easier assembly (can be found on Aliexpress)
-* Micro-controller: Arduino (Uno), incl. USB cable
-* Jumper cable to connect APDS-9960 wATTTh Arduino
-* Pin headers to solder to connector cable of GP2Y0A21YK
-* Material to hold the sensors, e.g. laser cut sensor module from "Hardware Sensor Module\Mirror Gesture Module.ai"
+ * Camera module
+ * RPi 4
+ * Monitor
+ * Material to hold the sensors, e.g. laser cut sensor module from "Hardware Sensor Module\Mirror Gesture Module.ai"
 
 ### Arduino and Sensor Setup
 The Arduino collects gesture events from gesture sensor APDS-9960 and distance from distance sensor GP2Y0A21YK (10-80cm), which are then forwarded on the serial port as text.
