@@ -102,59 +102,61 @@ module.exports = NodeHelper.create({
   	// can vary depending on which USB port the Arduino is connected
   	var exec = require('child_process').exec;
   	var self = this;
-  	exec('ls /dev/ttyACM*', function(error, stdout, stderr) {
+  	// exec('ls /dev/ttyACM*', function(error, stdout, stderr) {
 
-  		if (error !== null) {
+  	// 	if (error !== null) {
 
-  			console.log(new Date() + ': exec error: ' + error);
+  	// 		console.log(new Date() + ': exec error: ' + error);
 
-  		} else {
+  	// 	} else {
 
-  			// extract device information (which USB port)
-  			var usbDev = stdout.replace("\n","");
-  			process.stdout.write(new Date() + ': Using USB: ' + usbDev + '.\n');
+  	// 		// extract device information (which USB port)
+  	// 		var usbDev = stdout.replace("\n","");
+  	// 		process.stdout.write(new Date() + ': Using USB: ' + usbDev + '.\n');
 
-  			// create serial port for connected Arduino
-  			const serialPort = new SerialPort({ path: usbDev, baudRate: 9600 });
-  			const parser = serialPort.pipe(new ReadlineParser({ delimiter: '\n' }));
+  	// 		// create serial port for connected Arduino
+  	// 		const serialPort = new SerialPort({ path: usbDev, baudRate: 9600 });
+  	// 		const parser = serialPort.pipe(new ReadlineParser({ delimiter: '\n' }));
 
-  			// list to events from Arduino via serial USB port (e.g. from /dev/ttyACM0)
+  	// 		// list to events from Arduino via serial USB port (e.g. from /dev/ttyACM0)
 
-  			console.log('serial port opened');
+  	// 		console.log('serial port opened');
 
-  			parser.on('data', function(data) {
+  	// 		parser.on('data', function(data) {
 
-  				// parse Arduino distance events (distance sensor)
-  				if(data.indexOf("Person: ") == 0){
+  	// 			// parse Arduino distance events (distance sensor)
+  	// 			if(data.indexOf("Person: ") == 0){
 
-  					console.log(data);
+  	// 				console.log(data);
 
-  					var person = data.replace("Person: ","");
-  					// remove ending newline
-  					person = person.replace(/(\r\n|\n|\r)/gm,"");
+  	// 				var person = data.replace("Person: ","");
+  	// 				// remove ending newline
+  	// 				person = person.replace(/(\r\n|\n|\r)/gm,"");
 
-  					self.broadcast(person);
+  	// 				self.broadcast(person);
 
-  					self.saveEnergy(person);
+  	// 				self.saveEnergy(person);
 
-  				}
-  				// parse Arduino gesture events (gesture sensor)
-  				else if(data.indexOf("Gesture: ") == 0){
+  	// 			}
+  	// 			// parse Arduino gesture events (gesture sensor)
+  	// 			else if(data.indexOf("Gesture: ") == 0){
 
-  					console.log(data);
+  	// 				console.log(data);
 
-  					var gesture = data.replace("Gesture: ","");
-  					// remove ending newline
-  					gesture = gesture.replace(/(\r\n|\n|\r)/gm,"");
+  	// 				var gesture = data.replace("Gesture: ","");
+  	// 				// remove ending newline
+  	// 				gesture = gesture.replace(/(\r\n|\n|\r)/gm,"");
 
-  					self.broadcast(gesture);
+  	// 				self.broadcast(gesture);
 
-  				}
+  	// 			}
 
-  			});
+  	// 		});
 
-  		}
-  	});
+  	// 	}
+  	// });
+
+	
 
   },
 });

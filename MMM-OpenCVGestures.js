@@ -4,7 +4,7 @@ Module.register('MMM-OpenCVGestures', {
 	// events
 	start: function () {
 
-		Log.info('MMM-Gestures start invoked.');
+		Log.info('MMM-OpenCVGestures start invoked.');
 
 		// notifications are only received once the client (this file) sends the first message to the server (node_helper.js)
 		this.sendSocketNotification('INIT');
@@ -106,3 +106,4 @@ Module.register('MMM-OpenCVGestures', {
 	},
 
 });
+ko
