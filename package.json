@@ -1,10 +1,10 @@
 {
-	"name": "Magic-Mirror-Module-Gestures",
+	"name": "Magic-Mirror-OpenCV-Gestures",
 	"description": "Gesture module for the Magic Mirror.",
 	"version": "1.0.0",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/thobach/MMM-Gestures"
+		"url": "git+https://github.com/MasterPi-2124/MMM-OpenCVGestures"
 	},
 	"keywords": [
 		"magic mirror",
@@ -13,15 +13,15 @@
 		"gestures",
 		"module"
 	],
-	"author": "Thomas Bachmann",
+	"author": "Master Pi",
 	"contributors": [
-		"https://github.com/thobach/MMM-Gestures/graphs/contributors"
+		"https://github.com/MasterPi-2124/MMM-OpenCVGestures/graphs/contributors"
 	],
 	"license": "MIT",
 	"bugs": {
-		"url": "https://github.com/thobach/MMM-Gestures/issues"
+		"url": "https://github.com/MasterPi-2124/MMM-OpenCVGestures/issues"
 	},
-	"homepage": "https://github.com/thobach/MMM-Gestures#readme",
+	"homepage": "https://github.com/MasterPi-2124/MMM-OpenCVGestures#readme",
 	"dependencies": {
 		"magicmirror-rebuild": "1.0.5",
 		"serialport": "latest"
