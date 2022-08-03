@@ -11,7 +11,6 @@ Module.register("MMM-OpenCVGestures", {
     // file = 
     var timer = setInterval(() => {
       this.checkCompatibility(); // cant run on server side
-      this.readFromFile(file);
     }, 5000)
 	},
 
@@ -56,7 +55,8 @@ Module.register("MMM-OpenCVGestures", {
   },
 
   socketNotificationReceived(notification, payload) {
-    Log.log("ahihi");
+    this.config.message = notification;
+    this.updateDom();
   },
 
 });
