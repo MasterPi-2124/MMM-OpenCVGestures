@@ -41,7 +41,7 @@ Module.register("MMM-OpenCVGestures", {
         this.updateDom();
       }
     })
-    .catch(function(err) {dfgdfg
+    .catch(function(err) {
       console.log("[OP]: ", err.name + ": " + err.message);
     });
   },

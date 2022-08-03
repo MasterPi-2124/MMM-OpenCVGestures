@@ -12,6 +12,7 @@ module.exports = NodeHelper.create({
     const log = spawn('python3', ['predict.py']);
     log.stdout.on('data', function(data) {
       message = parseFloat(data);
+      console.log("[OP]: ", message);
       if (message === "MODULE_HELLO") {
         this.sendSocketNotification("OpenCV module started!");
       } else if (message === "MODULE_LOADED") {
