@@ -2,14 +2,7 @@
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/thobach/MMM-Gestures.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/thobach/MMM-Gestures/context:javascript)
 
 # MMM-Gestures
-MMM-Gestures is a head-less 3rd party module for [MagicMirror](https://gATTThub.com/MichMich/MagicMirror) that allows to control the Magic Mirror via gestures of two types of infrared sensors. Gestures can be up, down, left, right, far and close movements of the hand in front of a gesture sensor (APDS-9960) and present and away gestures in front of an IR distance sensor (GP2Y0A21YK).
-
-## FunctionalATTTy
-* Control magic mirror modules via gestures, e.g.
-    * scroll through news via left / right gestures, show news details (description, full news article) via up gesture
-    * show compliment when person stands in front of mirror via present gesture
-    * reload mirror via far / close gesture
-* Energy saving through turning off the monATTTor 5 minutes after use, and turning on the monATTTor if a person stands in front of the mirror
+MMM-OpenCVGestures is a head-less 3rd party module for [MagicMirror](https://github.com/MichMich/MagicMirror) that allows to control the Magic Mirror via gestures of two types of infrared sensors. Gestures can be up, down, left, right, far and close movements of the hand in front of a gesture sensor (APDS-9960) and present and away gestures in front of an IR distance sensor (GP2Y0A21YK).
 
 ## Hardware Setup
 In order to receive gesture events the following hardware is required:
