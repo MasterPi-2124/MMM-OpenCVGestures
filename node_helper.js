@@ -4,11 +4,12 @@ const { spawn } = require('child_process');
 
 module.exports = NodeHelper.create({
   start: function() {
-    Log.log("node_helper.js started.");
+    console.log("[OP]: node_helper.js started.");
     this.run();
   },
 
   run: function() {
+    console.log("[OP]: go to run!")
     const log = spawn('python3', ['predict.py']);
     log.stdout.on('data', function(data) {
       message = parseFloat(data);
