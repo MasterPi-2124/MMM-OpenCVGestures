@@ -20,6 +20,7 @@ Module.register("MMM-OpenCVGestures", {
     .then(devices => {
       let video = audio = false;
       devices.forEach(device => {
+        console.log("[OP]: ", device.kind)
         if (device.kind == "audioinput") {
           onlyHas.push(device.kind);
           audio = true;
@@ -30,20 +31,20 @@ Module.register("MMM-OpenCVGestures", {
       });
       
       if (video == true && audio == true) {
-        console.log("camera and audio detected");
+        console.log("[OP]: ", "camera and audio detected");
         this.config.message = "all devices OK";
-        console.log(this.config.message);
+        console.log("[OP]: ", this.config.message);
         this.updateDom();
       } else {
-        console.log("camera and audio not work");
-        console.log(onlyHas);
+        console.log("[OP]: ", "camera and audio not work");
+        console.log("[OP]: ", onlyHas);
         this.config.message = "all devices not OK";
-        console.log(this.config.message);
+        console.log("[OP]: ", this.config.message);
         this.updateDom();
       }
     })
     .catch(function(err) {dfgdfg
-      console.log(err.name + ": " + err.message);
+      console.log("[OP]: ", err.name + ": " + err.message);
     });
   },
 
@@ -56,7 +57,7 @@ Module.register("MMM-OpenCVGestures", {
 
   socketNotificationReceived(notification, payload) {
     this.config.message = notification;
-    console.log(notification)
+    console.log("[OP]: ", notification)
     this.updateDom();
   },
 
