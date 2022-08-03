@@ -9,9 +9,9 @@ Module.register("MMM-OpenCVGestures", {
 	start: function () {
 		Log.info('MMM-OpenCVGestures start invoked.');
     // file = 
-    var timer = setInterval(() => {
-      this.checkCompatibility(); // cant run on server side
-    }, 5000)
+    // var timer = setInterval(() => {
+    // }, 5000)
+    this.checkCompatibility(); // cant run on server side
 	},
 
   checkCompatibility: function () {
@@ -31,12 +31,10 @@ Module.register("MMM-OpenCVGestures", {
       });
       
       if (video == true && audio == true) {
-        console.log("[OP]: ", "camera and audio detected");
         this.config.message = "all devices OK";
         console.log("[OP]: ", this.config.message);
         this.updateDom();
       } else {
-        console.log("[OP]: ", "camera and audio not work");
         console.log("[OP]: ", onlyHas);
         this.config.message = "all devices not OK";
         console.log("[OP]: ", this.config.message);
