@@ -36,7 +36,7 @@ Module.register("MMM-OpenCVGestures", {
         this.updateDom();
       } else {
         console.log("camera and audio not work");
-        Log.log(onlyHas);
+        console.log(onlyHas);
         this.config.message = "all devices not OK";
         console.log(this.config.message);
         this.updateDom();
@@ -56,6 +56,7 @@ Module.register("MMM-OpenCVGestures", {
 
   socketNotificationReceived(notification, payload) {
     this.config.message = notification;
+    console.log(notification)
     this.updateDom();
   },
 
