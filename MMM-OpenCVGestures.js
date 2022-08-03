@@ -11,7 +11,7 @@ Module.register("MMM-OpenCVGestures", {
     // file = 
     // var timer = setInterval(() => {
     // }, 5000)
-    this.checkCompatibility(); // cant run on server side
+    //this.checkCompatibility(); // cant run on server side
 	},
 
   checkCompatibility: function () {
