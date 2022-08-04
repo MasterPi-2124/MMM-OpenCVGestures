@@ -3,6 +3,7 @@ Module.register("MMM-OpenCVGestures", {
   // Default module config.
   defaults: {
     message: "Hello World!",
+    fadeInterval: 500,
   },
 
 	start: function () {
@@ -35,12 +36,12 @@ Module.register("MMM-OpenCVGestures", {
       if (video == true && audio == true) {
         this.config.message = "all devices OK";
         console.log("[OP]: ", this.config.message);
-        this.updateDom();
+        this.updateDom(this.config.fadeInterval);
       } else {
         console.log("[OP]: ", onlyHas);
         this.config.message = "all devices not OK";
         console.log("[OP]: ", this.config.message);
-        this.updateDom();
+        this.updateDom(this.config.fadeInterval);
       }
     })
     .catch(function(err) {
@@ -58,6 +59,6 @@ Module.register("MMM-OpenCVGestures", {
   socketNotificationReceived(notification, payload) {
     this.config.message = notification;
     console.log("[OP]: ", notification);
-    this.updateDom();
+    this.updateDom(this.config.fadeInterval);
   },
 });
