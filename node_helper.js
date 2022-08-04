@@ -5,26 +5,27 @@ const { spawn } = require('child_process');
 module.exports = NodeHelper.create({
   start: function() {
     console.log("[OP]: node_helper.js started.");
-    this.run();
+    this.getCore();
   },
 
   socketNotificationReceived: function(notification, payload) {
-		if (notification === "HELLO_FROM_CLIENT") {
-			console.log("Working notification system. Notification:", notification, "payload: ", payload);
-			this.sendSocketNotification("HELLO_FROM_SERVER"); //Is possible send objects :)
+		if (notification === "HELLO_FROM_CLIENT_WITH_CONFIG") {
+			console.log("[OP]: Hello from client to initiate notification socket: ", notification);
+      this.config = payload;
 		}
 	},
 
-  run: function() {
+  getCore: function() {
     var self = this;
-    const log = spawn('python3', ['modules/MMM-OpenCVGestures/predict.py']);
+    let delayTime = this.config.delayTime;
+    console.log("[OP]: delayTime = ", delayTime);
+    const log = spawn('python3', ['modules/MMM-OpenCVGestures/predict.py', delayTime]);
     console.log("[OP]: Core spawned!")
     log.stdout.on('data', function(data) {
       message = data.toString();
       console.log("[OP]: ", message);
-      if (message === "FILE_REACHED") {
-        self.sendSocketNotification("python file reached!");
-      } else if (message === "MODULE_HELLO") {
+
+      if (message === "MODULE_HELLO") {
         self.sendSocketNotification("OpenCV module started!");
       } else if (message === "MODULE_LOADED") {
         self.sendSocketNotification("OpenCV module loaded!");

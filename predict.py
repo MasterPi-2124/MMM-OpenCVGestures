@@ -9,6 +9,7 @@ from tensorflow.keras.preprocessing.image import load_img
 from tensorflow.keras.models import load_model
 from time import sleep
 from time import perf_counter
+import sys
 from gpiozero import MotionSensor
 
 def build_model():
@@ -32,6 +33,7 @@ def predict(img):
     return classes[np.argmax(y[0])]
 
 if __name__ == "__main__":
+    delayTime = sys.argv[1]
     print("MODULE_HELLO", flush=True, end='')
     working_directory = os.path.dirname(os.path.abspath(__file__))
     model_link = '{}/result.h5'.format(working_directory)
@@ -45,7 +47,7 @@ if __name__ == "__main__":
         t1_start = perf_counter()
         vid = cv2.VideoCapture(0)
         print("MOTION_DETECTED", flush=True, end='')
-        sleep(3)
+        sleep(delayTime)
         print("PICTURE_CAPTURED", flush=True, end='')
         ret, frame = vid.read()
         cv2.imwrite('{}/savedImage.png'.format(working_directory), frame)
