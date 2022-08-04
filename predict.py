@@ -11,6 +11,8 @@ from time import sleep
 from time import perf_counter
 from gpiozero import MotionSensor
 
+print("FILE_REACHED", flush=True, end='')
+
 def build_model():
     img_size = (224, 224)
     base_model = MobileNetV2(weights=None, include_top=False, input_shape=img_size+(3,), alpha=0.75)

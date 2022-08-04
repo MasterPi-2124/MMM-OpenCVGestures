@@ -12,10 +12,11 @@ module.exports = NodeHelper.create({
     console.log("[OP]: go to run!")
     const log = spawn('python3', ['predict.py']);
     console.log("[OP]: spawned!")
-    log.stdout.on('data', function(data) {
-      message = parseFloat(data);
+    log.stdout.on('data', function(message) {
       console.log("[OP]: ", message);
-      if (message === "MODULE_HELLO") {
+      if (message === "FILE_REACHED") {
+        this.sendSocketNotification("python file reached!");
+      } else if (message === "MODULE_HELLO") {
         this.sendSocketNotification("OpenCV module started!");
       } else if (message === "MODULE_LOADED") {
         this.sendSocketNotification("OpenCV module loaded!");
