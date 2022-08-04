@@ -17,9 +17,8 @@ module.exports = NodeHelper.create({
 
   run: function() {
     var self = this;
-    console.log("[OP]: go to run!")
     const log = spawn('python3', ['modules/MMM-OpenCVGestures/predict.py']);
-    console.log("[OP]: spawned!")
+    console.log("[OP]: Core spawned!")
     log.stdout.on('data', function(data) {
       message = data.toString();
       console.log("[OP]: ", message);

@@ -56,8 +56,7 @@ Module.register("MMM-OpenCVGestures", {
 
   socketNotificationReceived(notification, payload) {
     this.config.message = notification;
-    console.log("[OP]: ", notification)
+    console.log("[OP]: ", notification);
     this.updateDom();
   },
-
 });
