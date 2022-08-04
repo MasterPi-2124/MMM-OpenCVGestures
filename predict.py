@@ -34,6 +34,7 @@ def predict(img):
 
 if __name__ == "__main__":
     delayTime = sys.argv[1]
+    print(delayTime, flush=True, end='')
     print("MODULE_HELLO", flush=True, end='')
     working_directory = os.path.dirname(os.path.abspath(__file__))
     model_link = '{}/result.h5'.format(working_directory)

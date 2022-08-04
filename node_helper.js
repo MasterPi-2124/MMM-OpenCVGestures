@@ -11,7 +11,6 @@ module.exports = NodeHelper.create({
 		if (notification === "HELLO_FROM_CLIENT_WITH_CONFIG") {
 			console.log("[OP]: Hello from client to initiate notification socket: ", notification);
       this.config = payload;
-      console.log("[OP]: ", this.config.delayTime);
       this.getCore();
 		}
 	},
