@@ -35,7 +35,7 @@ def predict(img):
 
 if __name__ == "__main__":
     print("MODULE_HELLO", flush=True, end='')
-    working_directory = os.getcwd()
+    working_directory = os.path.dirname(os.path.abspath(__file__))
     model_link = '{}/result.h5'.format(working_directory)
     model = build_model()
     model.load_weights(model_link)

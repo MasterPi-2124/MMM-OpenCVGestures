@@ -12,7 +12,8 @@ module.exports = NodeHelper.create({
     console.log("[OP]: go to run!")
     const log = spawn('python3', ['modules/MMM-OpenCVGestures/predict.py']);
     console.log("[OP]: spawned!")
-    log.stdout.on('data', function(message) {
+    log.stdout.on('data', function(data) {
+      message = data.toString();
       console.log("[OP]: ", message);
       if (message === "FILE_REACHED") {
         this.sendSocketNotification("python file reached!");
