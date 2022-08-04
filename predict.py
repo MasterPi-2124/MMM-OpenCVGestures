@@ -11,7 +11,7 @@ from time import sleep
 from time import perf_counter
 from gpiozero import MotionSensor
 
-print("FILE_REACHED", flush=True, end='')
+print("FILE_REACHED\n", flush=True, end='')
 
 def build_model():
     img_size = (224, 224)
@@ -34,28 +34,27 @@ def predict(img):
     return classes[np.argmax(y[0])]
 
 if __name__ == "__main__":
-    print("MODULE_HELLO", flush=True, end='')
+    print("MODULE_HELLO\n", flush=True, end='')
     working_directory = os.path.dirname(os.path.abspath(__file__))
     model_link = '{}/result.h5'.format(working_directory)
     model = build_model()
     model.load_weights(model_link)
     f = open("log.txt", "w")
     pir = MotionSensor(27)
-    print("MODULE_LOADED", flush=True, end='')
+    print("MODULE_LOADED\n", flush=True, end='')
     while True:
         pir.wait_for_motion()
         t1_start = perf_counter()
         vid = cv2.VideoCapture(0)
-        print("MOTION_DETECTED", flush=True, end='')
-        print("Motion detected! Sleep 3s before captured")
+        print("MOTION_DETECTED\n", flush=True, end='')
         sleep(3)
-        print("PICTURE_CAPTURED", flush=True, end='')
+        print("PICTURE_CAPTURED\n", flush=True, end='')
         ret, frame = vid.read()
-        cv2.imwrite('savedImage.png', frame)
+        cv2.imwrite('{}/savedImage.png'.format(working_directory), frame)
         vid.release()
         res = predict(frame)
         print("PROCESS_OK_{}".format(res), flush=True, end='')
         t1_stop = perf_counter()
         # print("Processed done. takes ", t1_stop - t1_start)
         pir.wait_for_no_motion()
-        print("MOTION_NOT_DETECTED", flush=True, end='')
+        print("MOTION_NOT_DETECTED\n", flush=True, end='')

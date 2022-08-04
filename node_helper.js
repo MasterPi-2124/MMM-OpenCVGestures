@@ -8,6 +8,13 @@ module.exports = NodeHelper.create({
     this.run();
   },
 
+  socketNotificationReceived: function(notification, payload) {
+		if (notification === "HELLO_FROM_CLIENT") {
+			console.log("Working notification system. Notification:", notification, "payload: ", payload);
+			this.sendSocketNotification("HELLO_FROM_SERVER"); //Is possible send objects :)
+		}
+	},
+
   run: function() {
     var self = this;
     console.log("[OP]: go to run!")
@@ -45,10 +52,5 @@ module.exports = NodeHelper.create({
       }
     })
   },
-
-  socketNotificationReceived: function(notification, payload) {
-    Log.log(notification);
-  },
-
 
 })

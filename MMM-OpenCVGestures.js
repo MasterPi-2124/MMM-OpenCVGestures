@@ -8,6 +8,7 @@ Module.register("MMM-OpenCVGestures", {
 
 	start: function () {
 		Log.info('MMM-OpenCVGestures start invoked.');
+    this.sendSocketNotification("HELLO_FROM_CLIENT")
     // file = 
     // var timer = setInterval(() => {
     // }, 5000)
