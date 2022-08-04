@@ -9,6 +9,7 @@ module.exports = NodeHelper.create({
   },
 
   run: function() {
+    var self = this;
     console.log("[OP]: go to run!")
     const log = spawn('python3', ['modules/MMM-OpenCVGestures/predict.py']);
     console.log("[OP]: spawned!")
@@ -16,31 +17,31 @@ module.exports = NodeHelper.create({
       message = data.toString();
       console.log("[OP]: ", message);
       if (message === "FILE_REACHED") {
-        this.sendSocketNotification("python file reached!");
+        self.sendSocketNotification("python file reached!");
       } else if (message === "MODULE_HELLO") {
-        this.sendSocketNotification("OpenCV module started!");
+        self.sendSocketNotification("OpenCV module started!");
       } else if (message === "MODULE_LOADED") {
-        this.sendSocketNotification("OpenCV module loaded!");
+        self.sendSocketNotification("OpenCV module loaded!");
       } else if (message === "MOTION_DETECTED") {
-        this.sendSocketNotification("Motion detected! Pause for 3second before capturing.");
+        self.sendSocketNotification("Motion detected! Pause for 3second before capturing.");
       } else if (message === "PICTURE_CAPTURED") {
-        this.sendSocketNotification("Picture captured and saved!");
+        self.sendSocketNotification("Picture captured and saved!");
       } else if (message === "PROCESS_OK_1") {
-        this.sendSocketNotification("Result: 1");
+        self.sendSocketNotification("Result: 1");
       } else if (message === "PROCESS_OK_L") {
-        this.sendSocketNotification("Result: L");
+        self.sendSocketNotification("Result: L");
       } else if (message === "PROCESS_OK_NOGESTURE") {
-        this.sendSocketNotification("Result: NOGESTURE");
+        self.sendSocketNotification("Result: NOGESTURE");
       } else if (message === "PROCESS_OK_PAPER") {
-        this.sendSocketNotification("Result: PAPER");
+        self.sendSocketNotification("Result: PAPER");
       } else if (message === "PROCESS_OK_ROCK") {
-        this.sendSocketNotification("Result: ROCK");
+        self.sendSocketNotification("Result: ROCK");
       } else if (message === "PROCESS_OK_SCISSOR") {
-        this.sendSocketNotification("Result: SCISSOR");
+        self.sendSocketNotification("Result: SCISSOR");
       } else if (message === "PROCESS_OK_U") {
-        this.sendSocketNotification("Result: U");
+        self.sendSocketNotification("Result: U");
       } else if (message === "MOTION_NOT_DETECTED") {
-        this.sendSocketNotification("Motion not detected, module will go to sleep.")
+        self.sendSocketNotification("Motion not detected, module will go to sleep.")
       }
     })
   },
