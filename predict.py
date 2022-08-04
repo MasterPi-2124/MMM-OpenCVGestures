@@ -52,6 +52,7 @@ if __name__ == "__main__":
         vid.release()
         res = predict(frame)
         print("PROCESS_OK_{}".format(res), flush=True, end='')
+        sleep(1.5)
         t1_stop = perf_counter()
         # print("Processed done. takes ", t1_stop - t1_start)
         pir.wait_for_no_motion()
