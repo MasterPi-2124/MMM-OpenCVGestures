@@ -5,14 +5,14 @@ const { spawn } = require('child_process');
 module.exports = NodeHelper.create({
   start: function() {
     console.log("[OP]: node_helper.js started.");
-    //this.getCore();
   },
 
   socketNotificationReceived: function(notification, payload) {
 		if (notification === "HELLO_FROM_CLIENT_WITH_CONFIG") {
 			console.log("[OP]: Hello from client to initiate notification socket: ", notification);
       this.config = payload;
-      console.log("[OP]: ", this.config);
+      console.log("[OP]: ", this.config.delayTime);
+      this.getCore();
 		}
 	},
 
