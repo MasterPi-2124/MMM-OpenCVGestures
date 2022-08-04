@@ -3,20 +3,21 @@ Module.register("MMM-OpenCVGestures", {
   // Default module config.
   defaults: {
     message: "Hello World!",
-    file: ""
   },
 
 	start: function () {
 		Log.info('MMM-OpenCVGestures start invoked.');
+    this.checkCompatibility();
     this.sendSocketNotification("HELLO_FROM_CLIENT")
-    // file = 
-    // var timer = setInterval(() => {
-    // }, 5000)
-    //this.checkCompatibility(); // cant run on server side
 	},
 
   checkCompatibility: function () {
     let onlyHas = [];
+    navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: true
+    });
+
     navigator.mediaDevices.enumerateDevices()
     .then(devices => {
       let video = audio = false;
