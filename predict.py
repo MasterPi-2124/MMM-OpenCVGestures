@@ -33,7 +33,7 @@ def predict(img):
     return classes[np.argmax(y[0])]
 
 if __name__ == "__main__":
-    delayTime = sys.argv[1]
+    delayTime = int(sys.argv[1])
     print(delayTime, flush=True, end='')
     print("MODULE_HELLO", flush=True, end='')
     working_directory = os.path.dirname(os.path.abspath(__file__))
