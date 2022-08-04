@@ -5,7 +5,7 @@ const { spawn } = require('child_process');
 module.exports = NodeHelper.create({
   start: function() {
     console.log("[OP]: node_helper.js started.");
-    this.getCore();
+    //this.getCore();
   },
 
   socketNotificationReceived: function(notification, payload) {
