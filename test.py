@@ -22,11 +22,13 @@ if __name__ == "__main__":
     print("MODULE_LOADED\n", flush=True, end='')
     while True:
         t1_start = perf_counter()
+        print(t1_start)
         pir.wait_for_motion()
         print("MOTION_DETECTED\n", flush=True, end='')
         sleep(3)
         print("PROCESS_OK_L\n", flush=True, end='')
         t1_stop = perf_counter()
+        print(t1_stop)
         print("Processed done. takes ", t1_stop - t1_start)
         pir.wait_for_no_motion()
         print("MOTION_NOT_DETECTED\n", flush=True, end='')
