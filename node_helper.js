@@ -34,7 +34,7 @@ module.exports = NodeHelper.create({
       } else if (message === "PICTURE_CAPTURED") {
         self.sendSocketNotification("Processing...");
       } else if (message === "PROCESS_OK_1") {
-        self.sendSocketNotification("Gesture ☝️ detected!");
+        self.sendSocketNotification("Gesture ☝ detected!");
       } else if (message === "PROCESS_OK_L") {
         self.sendSocketNotification("Gesture L detected!");
       } else if (message === "PROCESS_OK_NOGESTURE") {
@@ -46,7 +46,7 @@ module.exports = NodeHelper.create({
       } else if (message === "PROCESS_OK_SCISSOR") {
         self.sendSocketNotification("Gesture ✌️ detected!");
       } else if (message === "PROCESS_OK_U") {
-        self.sendSocketNotification("Gesture U detected!");
+        self.sendSocketNotification("Gesture 🤏🏻 detected!");
       } else if (message === "MOTION_NOT_DETECTED") {
         self.sendSocketNotification("Motion not detected, module will be hidden.")
       }
