@@ -5,6 +5,8 @@ const { spawn } = require('child_process');
 module.exports = NodeHelper.create({
   start: function() {
     console.log("[OP]: node_helper.js started.");
+    this.monitorOn = true;    
+    this.turnOffTimer = undefined;
   },
 
   socketNotificationReceived: function(notification, payload) {
@@ -15,11 +17,30 @@ module.exports = NodeHelper.create({
 		}
 	},
 
+  sleep: function() {
+    var self = this;
+    if(self.turnOffTimer){
+      console.log('[OP]: removing save energy timer');
+      clearTimeout(self.turnOffTimer);
+    }
+    var exec = require('child_process').exec;
+    exec('vcgencmd display_power 1', function(error, stdout, stderr) {
+      if (error !== null) {
+        console.log(new Date() + ': exec error: ' + error);
+      } else {
+    
+        process.stdout.write(new Date() + ': Turned monitor on.\n');
+        self.hdmiOn = true;
+      }
+    });
+  },
+
   getCore: function() {
     var self = this;
     let delayTime = this.config.delayTime;
+    let gpio = this.config.GPIO;
     console.log("[OP]: delayTime = ", delayTime);
-    const log = spawn('python3', ['modules/MMM-OpenCVGestures/predict.py', delayTime]);
+    const log = spawn('python3', ['modules/MMM-OpenCVGestures/predict.py', delayTime, gpio]);
     console.log("[OP]: Core spawned!")
     log.stdout.on('data', function(data) {
       message = data.toString();

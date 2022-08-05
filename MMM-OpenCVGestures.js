@@ -5,6 +5,9 @@ Module.register("MMM-OpenCVGestures", {
     fadeInterval: 500,
     delayTime: 3, // Delay time for mirror between dectecting motions and taking pictures
     customCommand: {},
+    hidden: false,
+    GPIO: 27, // GPIO Pin of PIR sensor
+    standbyTime: 6000,
   },
 
   getStyles: function () {
