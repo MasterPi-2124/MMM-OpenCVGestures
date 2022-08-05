@@ -1,3 +1,4 @@
+from datetime import datetime
 import os
 import cv2
 import numpy as np
@@ -34,30 +35,45 @@ def predict(img):
 
 if __name__ == "__main__":
     delayTime = int(sys.argv[1])
+    gpio = int(sys.argv[2])
+    working_directory = os.path.dirname(os.path.abspath(__file__))
+    f = open('{}/log.txt'.format(working_directory), "a")
+    f.write("Logging for session {}\n----------------------------\n".format(datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
+    pir = MotionSensor(gpio)
     print("MODULE_HELLO", flush=True, end='')
 
-    working_directory = os.path.dirname(os.path.abspath(__file__))
+    m1_start = perf_counter()
     model_link = '{}/result.h5'.format(working_directory)
     model = build_model()
     model.load_weights(model_link)
-
-    f = open('{}/log.txt'.format(working_directory), "w")
-    pir = MotionSensor(27)
+    m1_stop = perf_counter()
+    f.write("[OP]: Module loaded in {} second.\n".format(m1_stop - m1_start))
     print("MODULE_LOADED", flush=True, end='')
+
     while True:
         pir.wait_for_motion()
         t1_start = perf_counter()
         vid = cv2.VideoCapture(0)
+        f.write("[OP]: Motion detected.\n")
         print("MOTION_DETECTED", flush=True, end='')
+
         sleep(delayTime)
+
         print("PICTURE_CAPTURED", flush=True, end='')
+        d1_start = perf_counter()
         ret, frame = vid.read()
         cv2.imwrite('{}/savedImage.png'.format(working_directory), frame)
         vid.release()
+
         res = predict(frame)
+
+        d1_stop = perf_counter()
+        f.write("[OP]: Process result: {}\n".format(res))
+        f.write("[OP]: Module processed in {} second.\n".format(d1_stop - d1_start))
         print("PROCESS_OK_{}".format(res), flush=True, end='')
         sleep(1.5)
-        t1_stop = perf_counter()
-        # print("Processed done. takes ", t1_stop - t1_start)
+        
         pir.wait_for_no_motion()
+        t1_stop = perf_counter()
+        f.write("[OP]: End of ONE gesture processing. Take {} second.\n".format(t1_stop - t1_start))
         print("MOTION_NOT_DETECTED", flush=True, end='')
