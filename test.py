@@ -1,5 +1,6 @@
 from time import perf_counter
 from gpiozero import MotionSensor
+import sys
 
 if __name__ == "__main__":
     pir = MotionSensor(int(sys.argv[1]))
