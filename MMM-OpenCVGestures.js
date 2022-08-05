@@ -57,7 +57,7 @@ Module.register("MMM-OpenCVGestures", {
   // Override dom generator.
   getDom() {
     var wrapper = document.createElement("div");
-    wrapper.className = "wrapper";
+    wrapper.className = "wrapper thin xlarge bright pre-line";
     wrapper.innerHTML = this.config.message;
     return wrapper;
   },
