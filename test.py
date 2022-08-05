@@ -2,7 +2,7 @@ from time import perf_counter
 from gpiozero import MotionSensor
 
 if __name__ == "__main__":
-    pir = MotionSensor(27)
+    pir = MotionSensor(int(sys.argv[1]))
     print("MODULE_LOADED")
     while True:
         pir.wait_for_motion()
