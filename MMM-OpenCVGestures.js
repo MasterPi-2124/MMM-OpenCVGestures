@@ -8,7 +8,7 @@ Module.register("MMM-OpenCVGestures", {
   },
 
   getStyles: function () {
-		return ["clock_styles.css"];
+		return ["MMM-OpenCVGestures.css"];
 	},
 
 	start: function () {
