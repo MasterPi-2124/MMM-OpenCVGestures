@@ -34,13 +34,14 @@ def predict(img):
 
 if __name__ == "__main__":
     delayTime = int(sys.argv[1])
-    print(delayTime, flush=True, end='')
     print("MODULE_HELLO", flush=True, end='')
+
     working_directory = os.path.dirname(os.path.abspath(__file__))
     model_link = '{}/result.h5'.format(working_directory)
     model = build_model()
     model.load_weights(model_link)
-    f = open("log.txt", "w")
+
+    f = open('{}/log.txt'.format(working_directory), "w")
     pir = MotionSensor(27)
     print("MODULE_LOADED", flush=True, end='')
     while True:

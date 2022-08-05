@@ -30,7 +30,7 @@ module.exports = NodeHelper.create({
       } else if (message === "MODULE_LOADED") {
         self.sendSocketNotification("OpenCV module loaded!");
       } else if (message === "MOTION_DETECTED") {
-        self.sendSocketNotification("Motion detected! Pause for 3second before capturing.");
+        self.sendSocketNotification("Motion detected! Pause for 3 second before capturing.");
       } else if (message === "PICTURE_CAPTURED") {
         self.sendSocketNotification("Picture captured and saved!");
       } else if (message === "PROCESS_OK_1") {

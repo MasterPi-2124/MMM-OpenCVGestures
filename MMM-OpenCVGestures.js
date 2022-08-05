@@ -7,6 +7,10 @@ Module.register("MMM-OpenCVGestures", {
     customCommand: {},
   },
 
+  getStyles: function () {
+		return ["clock_styles.css"];
+	},
+
 	start: function () {
 		Log.info('[OP]: MMM-OpenCVGestures start invoked.');
     // this.checkCompatibility();
@@ -53,6 +57,7 @@ Module.register("MMM-OpenCVGestures", {
   // Override dom generator.
   getDom() {
     var wrapper = document.createElement("div");
+    wrapper.className = "wrapper";
     wrapper.innerHTML = this.config.message;
     return wrapper;
   },
