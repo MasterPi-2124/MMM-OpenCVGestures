@@ -72,8 +72,8 @@ if __name__ == "__main__":
         f.write("[OP]: Module processed in {} second.\n".format(d1_stop - d1_start))
         print("PROCESS_OK_{}".format(res), flush=True, end='')
         sleep(1.5)
-        
+
         pir.wait_for_no_motion()
         t1_stop = perf_counter()
-        f.write("[OP]: End of ONE gesture processing. Take {} second.\n".format(t1_stop - t1_start))
+        f.write("[OP]: End of ONE gesture processing. Take {} second.\n\n".format(t1_stop - t1_start))
         print("MOTION_NOT_DETECTED", flush=True, end='')
