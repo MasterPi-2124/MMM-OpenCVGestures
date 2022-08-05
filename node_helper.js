@@ -39,9 +39,7 @@ module.exports = NodeHelper.create({
     var self = this;
     let delayTime = this.config.delayTime;
     let gpio = this.config.GPIO;
-    console.log("[OP]: delayTime = ", delayTime);
     const log = spawn('python3', ['modules/MMM-OpenCVGestures/predict.py', delayTime, gpio]);
-    console.log("[OP]: Core spawned!")
     log.stdout.on('data', function(data) {
       message = data.toString();
       console.log("[OP]: ", message);

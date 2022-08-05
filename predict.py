@@ -36,6 +36,7 @@ def predict(img):
 if __name__ == "__main__":
     delayTime = int(sys.argv[1])
     gpio = int(sys.argv[2])
+    print(gpio)
     working_directory = os.path.dirname(os.path.abspath(__file__))
     f = open('{}/log.txt'.format(working_directory), "a")
     f.write("Logging for session {}\n----------------------------\n".format(datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
