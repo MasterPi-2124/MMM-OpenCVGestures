@@ -28,27 +28,27 @@ module.exports = NodeHelper.create({
       if (message === "MODULE_HELLO") {
         self.sendSocketNotification("OpenCV module started!");
       } else if (message === "MODULE_LOADED") {
-        self.sendSocketNotification("OpenCV module loaded!");
+        self.sendSocketNotification("OpenCV module loaded! This module will be hidden until a motion nearby is detected.");
       } else if (message === "MOTION_DETECTED") {
-        self.sendSocketNotification("Motion detected! Pause for 3 second before capturing.");
+        self.sendSocketNotification("Motion detected! Waiting for 3s before capturing...");
       } else if (message === "PICTURE_CAPTURED") {
-        self.sendSocketNotification("Picture captured and saved!");
+        self.sendSocketNotification("Processing...");
       } else if (message === "PROCESS_OK_1") {
-        self.sendSocketNotification("Result: 1");
+        self.sendSocketNotification("Gesture ☝️ detected!");
       } else if (message === "PROCESS_OK_L") {
-        self.sendSocketNotification("Result: L");
+        self.sendSocketNotification("Gesture L detected!");
       } else if (message === "PROCESS_OK_NOGESTURE") {
-        self.sendSocketNotification("Result: NOGESTURE");
+        self.sendSocketNotification("No gestures detected!");
       } else if (message === "PROCESS_OK_PAPER") {
-        self.sendSocketNotification("Result: PAPER");
+        self.sendSocketNotification("Gesture 🖐️ detected!");
       } else if (message === "PROCESS_OK_ROCK") {
-        self.sendSocketNotification("Result: ROCK");
+        self.sendSocketNotification("Gesture ✊ detected!");
       } else if (message === "PROCESS_OK_SCISSOR") {
-        self.sendSocketNotification("Result: SCISSOR");
+        self.sendSocketNotification("Gesture ✌️ detected!");
       } else if (message === "PROCESS_OK_U") {
-        self.sendSocketNotification("Result: U");
+        self.sendSocketNotification("Gesture U detected!");
       } else if (message === "MOTION_NOT_DETECTED") {
-        self.sendSocketNotification("Motion not detected, module will go to sleep.")
+        self.sendSocketNotification("Motion not detected, module will be hidden.")
       }
     })
   },
