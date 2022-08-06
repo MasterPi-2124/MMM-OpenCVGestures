@@ -5,7 +5,7 @@ from gpiozero import MotionSensor
 import RPi.GPIO as GPIO    # Import Raspberry Pi GPIO library
 from time import sleep     # Import the sleep function from the time module
 GPIO.setwarnings(False) 
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BCM)
 GPIO.setup(17, GPIO.OUT, initial=GPIO.LOW)   # Set pin 17 to be an output pin and set initial value to low (off)
 
 if __name__ == "__main__":
