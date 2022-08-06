@@ -55,7 +55,7 @@ Module.register("MMM-OpenCVGestures", {
     this.updateDom(this.config.fadeInterval);
     if (notification === "MODULE_LOADED" || notification === "MOTION_NOT_DETECTED") {
       setTimeout(function () {
-      }, 1000);
+      }, 3000);
       this.toggleHide(true);
     }
   },
