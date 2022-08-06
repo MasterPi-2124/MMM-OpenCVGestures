@@ -67,7 +67,7 @@ module.exports = NodeHelper.create({
           self.sendSocketNotification(message, "OpenCV module loaded! This module will be hidden until a motion nearby is detected.");
           break;
         case "MOTION_DETECTED":
-          self.triggerScreen("on");
+          // self.triggerScreen("on");
           self.sendSocketNotification(message, "Motion detected! Waiting for 3s before capturing...");
           break;
         case "PICTURE_CAPTURED":
@@ -96,7 +96,7 @@ module.exports = NodeHelper.create({
           break;
         case "MOTION_NOT_DETECTED":
           self.sendSocketNotification(message, "Motion not detected, module will be hidden.");
-          self.triggerScreen("off");
+          // self.triggerScreen("off");
           break;
       }
     })

@@ -49,11 +49,11 @@ Module.register("MMM-OpenCVGestures", {
   socketNotificationReceived(notification, payload) {
     this.config.message = payload;
     console.log("[OP]: ", notification);
-    if (message === "MOTION_DETECTED") {
+    if (notification === "MOTION_DETECTED") {
       this.toggleHide(false);
     }
     this.updateDom(this.config.fadeInterval);
-    if (message === "MODULE_LOADED" || message === "MOTION_NOT_DETECTED") {
+    if (notification === "MODULE_LOADED" || message === "MOTION_NOT_DETECTED") {
       this.toggleHide(true);
     }
   },
