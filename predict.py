@@ -12,11 +12,6 @@ from time import sleep
 from time import perf_counter
 import sys
 from gpiozero import MotionSensor
-import RPi.GPIO as GPIO    # Import Raspberry Pi GPIO library
-
-GPIO.setwarnings(False) 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(17, GPIO.OUT, initial=GPIO.LOW)
 
 def build_model():
     img_size = (224, 224)
@@ -62,14 +57,6 @@ if __name__ == "__main__":
         f.write("[OP]: Motion detected.\n")
         print("MOTION_DETECTED", flush=True, end='')
 
-        sleep(0.5)
-        if GPIO.input(17) == GPIO.LOW:
-            print("LED_ON", flush=True, end='')
-            GPIO.output(17, GPIO.HIGH) # Turn on
-        else:
-            print("LED_OFF", flush=True, end='')
-            GPIO.output(17, GPIO.LOW) # Turn off
-
         sleep(delayTime)
 
         print("PICTURE_CAPTURED", flush=True, end='')
@@ -82,13 +69,6 @@ if __name__ == "__main__":
 
         d1_stop = perf_counter()
         f.write("[OP]: Process result: {}\n".format(res))
-        # if res == "PAPER":
-        #     if GPIO.input(17) == GPIO.LOW:
-        #         print("LED_ON", flush=True, end='')
-        #         GPIO.output(17, GPIO.HIGH) # Turn on
-        #     else:
-        #         print("LED_OFF", flush=True, end='')
-        #         GPIO.output(17, GPIO.LOW) # Turn off
 
         f.write("[OP]: Module processed in {} second.\n".format(d1_stop - d1_start))
         print("PROCESS_OK_{}".format(res), flush=True, end='')

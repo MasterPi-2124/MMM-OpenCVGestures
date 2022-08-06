@@ -1,6 +1,6 @@
 const NodeHelper = require("node_helper");
 const Log = require("logger");
-const { spawn } = require('child_process');
+const { spawn, exec } = require('child_process');
 
 module.exports = NodeHelper.create({
   start: function() {
@@ -23,30 +23,27 @@ module.exports = NodeHelper.create({
       console.log('[OP]: removing save energy timer');
       clearTimeout(self.turnOffTimer);
     }
-    if (!self.hdmiOn && state === "on") {
-      var exec = require('child_process').exec;
+
+    if (!self.monitorOn && state === "on") {
       exec('vcgencmd display_power 1', function(error, stdout, stderr) {
         if (error !== null) {
           console.log(new Date() + ': exec error: ' + error);
         } else {
           process.stdout.write(new Date() + ': Turned monitor on.\n');
-          self.hdmiOn = true;
+          self.monitorOn = true;
         }
       });
-    } else if (self.hdmiOn && state === "off") {
+    } else if (self.monitorOn && state === "off") {
       self.turnOffTimer = setTimeout( function() {
-  			// make system call to turn off display
-  			var exec = require('child_process').exec;
-  			// alternatively could usee also "tvservice -o", but showed less compatability
   			exec('vcgencmd display_power 0', function(error, stdout, stderr) {
   				if (error !== null) {
   					console.log(new Date() + ': exec error: ' + error);
   				} else {
   					process.stdout.write(new Date() + ': Turned monitor off.\n');
-  					self.hdmiOn = false;
+  					self.monitorOn = false;
   				}
   			});
-  		}, self.WAIT_UNTIL_SLEEP);
+  		}, self.config.standbyTime);
     }
   },
 
@@ -67,7 +64,7 @@ module.exports = NodeHelper.create({
           self.sendSocketNotification(message, "OpenCV module loaded! This module will be hidden until a motion nearby is detected.");
           break;
         case "MOTION_DETECTED":
-          // self.triggerScreen("on");
+          self.triggerScreen("on");
           self.sendSocketNotification(message, "Motion detected! Waiting for 3s before capturing...");
           break;
         case "PICTURE_CAPTURED":
@@ -96,7 +93,7 @@ module.exports = NodeHelper.create({
           break;
         case "MOTION_NOT_DETECTED":
           self.sendSocketNotification(message, "Motion not detected, module will be hidden.");
-          // self.triggerScreen("off");
+          self.triggerScreen("off");
           break;
         case "LED_ON":
           self.sendSocketNotification(message, "The LED is on!");
