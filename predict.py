@@ -62,6 +62,13 @@ if __name__ == "__main__":
         f.write("[OP]: Motion detected.\n")
         print("MOTION_DETECTED", flush=True, end='')
 
+        if GPIO.input(17) == GPIO.LOW:
+            print("LED_ON", flush=True, end='')
+            GPIO.output(17, GPIO.HIGH) # Turn on
+        else:
+            print("LED_OFF", flush=True, end='')
+            GPIO.output(17, GPIO.LOW) # Turn off
+            
         sleep(delayTime)
 
         print("PICTURE_CAPTURED", flush=True, end='')
@@ -74,13 +81,13 @@ if __name__ == "__main__":
 
         d1_stop = perf_counter()
         f.write("[OP]: Process result: {}\n".format(res))
-        if res == "PAPER":
-            if GPIO.input(17) == GPIO.LOW:
-                print("LED_ON", flush=True, end='')
-                GPIO.output(17, GPIO.HIGH) # Turn on
-            else:
-                print("LED_OFF", flush=True, end='')
-                GPIO.output(17, GPIO.LOW) # Turn off
+        # if res == "PAPER":
+        #     if GPIO.input(17) == GPIO.LOW:
+        #         print("LED_ON", flush=True, end='')
+        #         GPIO.output(17, GPIO.HIGH) # Turn on
+        #     else:
+        #         print("LED_OFF", flush=True, end='')
+        #         GPIO.output(17, GPIO.LOW) # Turn off
 
         f.write("[OP]: Module processed in {} second.\n".format(d1_stop - d1_start))
         print("PROCESS_OK_{}".format(res), flush=True, end='')
