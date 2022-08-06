@@ -7,7 +7,7 @@ Module.register("MMM-OpenCVGestures", {
     customCommand: {},
     hidden: false,
     GPIO: -1, // GPIO Pin of PIR sensor
-    standbyTime: 6000,
+    standbyTime: 30 * 1000, // default duration time before screen off
   },
 
   getStyles: function () {
