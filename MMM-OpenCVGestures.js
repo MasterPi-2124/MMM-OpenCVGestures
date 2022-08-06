@@ -24,6 +24,20 @@ Module.register("MMM-OpenCVGestures", {
     }
   },
 
+  toggleHide: function (state) {
+    console.log("[OP]: ", this.name);
+    thisModule = MM.getModules().withClass(this.name);
+    if (thisModule && thisModule.length === 1) {
+      console.log("[OP]: MMM-OpenCVGestures hidden.");
+      var module = thisModule[0];
+      if (state === true) {
+        module.hide();
+      } else {
+        module.show();
+      }
+    }
+  },
+
   // Override dom generator.
   getDom() {
     var wrapper = document.createElement("div");
@@ -33,8 +47,14 @@ Module.register("MMM-OpenCVGestures", {
   },
 
   socketNotificationReceived(notification, payload) {
-    this.config.message = notification;
+    this.config.message = payload;
     console.log("[OP]: ", notification);
+    if (message === "MOTION_DETECTED") {
+      this.toggleHide(false);
+    }
     this.updateDom(this.config.fadeInterval);
+    if (message === "MODULE_LOADED" || message === "MOTION_NOT_DETECTED") {
+      this.toggleHide(true);
+    }
   },
 });
