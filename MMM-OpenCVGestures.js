@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 Module.register("MMM-OpenCVGestures", {
   // Default module config.
   defaults: {
@@ -32,7 +34,6 @@ Module.register("MMM-OpenCVGestures", {
   },
 
   checkCompatibility: function () {
-    const fs = require('fs');
     if (fs.existsSync("/dev/video0")) {
       return true;
     } else return false;
