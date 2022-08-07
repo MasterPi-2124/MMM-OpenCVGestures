@@ -1,6 +1,7 @@
 const NodeHelper = require("node_helper");
 const Log = require("logger");
 const { spawn, exec } = require('child_process');
+const fs = require('fs');
 
 module.exports = NodeHelper.create({
   start: function() {
@@ -10,12 +11,24 @@ module.exports = NodeHelper.create({
   },
 
   socketNotificationReceived: function(notification, payload) {
-		if (notification === "HELLO_FROM_CLIENT_WITH_CONFIG") {
+		if (notification === "CLIENT_HELLO") {
 			console.log("[OP]: Hello from client to initiate notification socket: ", notification);
       this.config = payload;
-      this.getCore();
+      if (this.checkCompatibility() === true) {
+        this.getCore();
+      }
 		}
 	},
+
+  checkCompatibility: function () {
+    if (fs.existsSync("/dev/video0")) {
+      self.sendSocketNotification("CAMERA_OK", "Camera is ready!");
+      return true;
+    } else {
+      self.sendSocketNotification("CAMERA_NOT_OK", "Camera is not ready! Please check device again.");
+      return false;
+    }
+  },
 
   triggerScreen: function(state) {
     var self = this;

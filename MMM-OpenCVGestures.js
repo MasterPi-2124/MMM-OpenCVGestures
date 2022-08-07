@@ -1,5 +1,3 @@
-const fs = require('fs');
-
 Module.register("MMM-OpenCVGestures", {
   // Default module config.
   defaults: {
@@ -22,21 +20,9 @@ Module.register("MMM-OpenCVGestures", {
       this.config.message = "MMM-OpenCVGestures GPIO param is misconfigured!";
       this.updateDom(this.config.fadeInterval);
       this.toggleHide(true);
-    } else if (this.checkCompatibility() === false) {
-      this.config.message = "Camera is not ready! Please check device again.";
-      this.updateDom(this.config.fadeInterval);
-      this.toggleHide(true);
     } else {
-      this.config.message = "Camera is ready!";
-      this.updateDom(this.config.fadeInterval);
-      this.sendSocketNotification("HELLO_FROM_CLIENT_WITH_CONFIG", this.config);
+      this.sendSocketNotification("CLIENT_HELLO", this.config);
     }
-  },
-
-  checkCompatibility: function () {
-    if (fs.existsSync("/dev/video0")) {
-      return true;
-    } else return false;
   },
 
   toggleHide: function (state) {
@@ -69,10 +55,7 @@ Module.register("MMM-OpenCVGestures", {
       this.toggleHide(false);
     }
     this.updateDom(this.config.fadeInterval);
-    if (
-      notification === "MODULE_LOADED" ||
-      notification === "MOTION_NOT_DETECTED"
-    ) {
+    if ( notification === "MODULE_LOADED" || notification === "MOTION_NOT_DETECTED") {
       setTimeout(function () {
         self.toggleHide(true);
       }, 3000);
