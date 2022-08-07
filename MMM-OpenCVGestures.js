@@ -28,12 +28,13 @@ Module.register("MMM-OpenCVGestures", {
   toggleHide: function (state) {
     thisModule = MM.getModules().withClass(this.name);
     if (thisModule && thisModule.length === 1) {
-      console.log("[OP]: MMM-OpenCVGestures hidden.");
       var module = thisModule[0];
       if (state === true) {
-        module.hide(this.config.fadeInterval);
+      console.log("[OP]: MMM-OpenCVGestures hidden.");
+      module.hide(this.config.fadeInterval);
       } else {
-        module.show(this.config.fadeInterval);
+      console.log("[OP]: MMM-OpenCVGestures shown.");
+      module.show(this.config.fadeInterval);
       }
     }
   },
