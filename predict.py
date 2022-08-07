@@ -13,6 +13,8 @@ from time import perf_counter
 import sys
 from gpiozero import MotionSensor
 
+print("MODULE_HELLO", flush=True, end='')
+
 def build_model():
     img_size = (224, 224)
     base_model = MobileNetV2(weights=None, include_top=False, input_shape=img_size+(3,), alpha=0.75)
@@ -40,7 +42,6 @@ if __name__ == "__main__":
     working_directory = os.path.dirname(os.path.abspath(__file__))
     f = open('{}/log.txt'.format(working_directory), "a")
     f.write("Logging for session {}\n----------------------------\n".format(datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
-    print("MODULE_HELLO", flush=True, end='')
 
     m1_start = perf_counter()
     model_link = '{}/result.h5'.format(working_directory)
@@ -65,7 +66,7 @@ if __name__ == "__main__":
             print("LED_ON", flush=True, end='')
         else:
             print("LED_OFF", flush=True, end='')
-        sleep(0.2)
+        sleep(2)
 
         print("PICTURE_CAPTURED", flush=True, end='')
         d1_start = perf_counter()
