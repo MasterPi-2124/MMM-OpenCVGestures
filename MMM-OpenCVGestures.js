@@ -33,10 +33,6 @@ Module.register("MMM-OpenCVGestures", {
 
   checkCompatibility: function () {
     let onlyHas = [];
-    navigator.mediaDevices.getUserMedia({
-      audio: true
-    });
-
     navigator.mediaDevices
       .enumerateDevices()
       .then((devices) => {
