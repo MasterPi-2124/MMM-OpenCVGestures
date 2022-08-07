@@ -32,8 +32,8 @@ Module.register("MMM-OpenCVGestures", {
   },
 
   checkCompatibility: function () {
-    let fso = new ActiveXObject("Scripting.FileSystemObject");
-    if (fso.FolderExists("/dev/video0")) {
+    const fs = require('fs');
+    if (fs.existsSync("/dev/video0")) {
       return true;
     } else return false;
   },
