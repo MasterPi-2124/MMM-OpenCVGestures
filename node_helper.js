@@ -108,6 +108,12 @@ module.exports = NodeHelper.create({
           self.sendSocketNotification(message, "Motion not detected, module will be hidden.");
           self.triggerScreen("off");
           break;
+        case "LED_ON":
+          self.sendSocketNotification(message, "LED is on!");
+          break;
+        case "LED_OFF":
+          self.sendSocketNotification(message, "LED is off!");
+          break;
       }
     })
   },

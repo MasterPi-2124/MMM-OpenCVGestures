@@ -50,6 +50,7 @@ if __name__ == "__main__":
     f.write("[OP]: Module loaded in {} second.\n".format(m1_stop - m1_start))
     print("MODULE_LOADED", flush=True, end='')
 
+    x = 0
     while True:
         pir.wait_for_motion()
         t1_start = perf_counter()
@@ -58,6 +59,13 @@ if __name__ == "__main__":
         print("MOTION_DETECTED", flush=True, end='')
 
         sleep(delayTime)
+
+        x = x + 1
+        if (x % 2):
+            print("LED_ON", flush=True, end='')
+        else:
+            print("LED_OFF", flush=True, end='')
+        sleep(0.2)
 
         print("PICTURE_CAPTURED", flush=True, end='')
         d1_start = perf_counter()
