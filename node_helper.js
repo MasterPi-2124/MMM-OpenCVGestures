@@ -22,10 +22,10 @@ module.exports = NodeHelper.create({
 
   checkCompatibility: function () {
     if (fs.existsSync("/dev/video0")) {
-      self.sendSocketNotification("CAMERA_OK", "Camera is ready!");
+      this.sendSocketNotification("CAMERA_OK", "Camera is ready!");
       return true;
     } else {
-      self.sendSocketNotification("CAMERA_NOT_OK", "Camera is not ready! Please check device again.");
+      this.sendSocketNotification("CAMERA_NOT_OK", "Camera is not ready! Please check device again.");
       return false;
     }
   },
