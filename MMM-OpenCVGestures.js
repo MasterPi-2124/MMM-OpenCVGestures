@@ -21,45 +21,21 @@ Module.register("MMM-OpenCVGestures", {
       this.updateDom(this.config.fadeInterval);
       this.toggleHide(true);
     } else if (this.checkCompatibility() === false) {
-      this.config.message = "Input devices are not ready! Please check devices again.";
+      this.config.message = "Camera is not ready! Please check device again.";
       this.updateDom(this.config.fadeInterval);
       this.toggleHide(true);
     } else {
-      this.config.message = "Input devices are ready!";
+      this.config.message = "Camera is ready!";
       this.updateDom(this.config.fadeInterval);
       this.sendSocketNotification("HELLO_FROM_CLIENT_WITH_CONFIG", this.config);
     }
   },
 
   checkCompatibility: function () {
-    let onlyHas = [];
-    navigator.mediaDevices
-      .enumerateDevices()
-      .then((devices) => {
-        let audio = video = false;
-        devices.forEach((device) => {
-          console.log("[OP]: ", device.kind);
-          if (device.kind == "audioinput") {
-            onlyHas.push(device.kind);
-            audio = true;
-          }
-        });
-
-        let fso = new ActiveXObject("Scripting.FileSystemObject");
-        if (fso.FolderExists("/dev/video0")) {
-          video = true;
-          onlyHas.push("videoinput");
-        }
-
-        if (video === true && audio === true) {
-          return true;
-        } else {
-          return false;
-        }
-      })
-      .catch(function (err) {
-        console.log("[OP]: ", err.name + ": " + err.message);
-      });
+    let fso = new ActiveXObject("Scripting.FileSystemObject");
+    if (fso.FolderExists("/dev/video0")) {
+      return true;
+    } else return false;
   },
 
   toggleHide: function (state) {
