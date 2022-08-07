@@ -7,7 +7,7 @@ Module.register("MMM-OpenCVGestures", {
     customCommand: {},
     hidden: false,
     GPIO: -1, // GPIO Pin of PIR sensor
-    standbyTime: 30 * 1000, // default duration time before screen off
+    standbyTime: 10 * 1000, // default duration time before screen off
   },
 
   getStyles: function () {
@@ -15,13 +15,55 @@ Module.register("MMM-OpenCVGestures", {
   },
 
   start: function () {
-    Log.info("[OP]: MMM-OpenCVGestures start invoked.");
+    console.log("[OP]: MMM-OpenCVGestures start invoked.");
     if (this.config.GPIO === -1) {
       this.config.message = "MMM-OpenCVGestures GPIO param is misconfigured!";
       this.updateDom(this.config.fadeInterval);
+      this.toggleHide(true);
+    } else if (this.checkCompatibility() === false) {
+      this.config.message = "Input devices are not ready! Please check devices again.";
+      this.updateDom(this.config.fadeInterval);
+      this.toggleHide(true);
     } else {
+      this.config.message = "Input devices are ready!";
+      this.updateDom(this.config.fadeInterval);
       this.sendSocketNotification("HELLO_FROM_CLIENT_WITH_CONFIG", this.config);
     }
+  },
+
+  checkCompatibility: function () {
+    let onlyHas = [];
+    navigator.mediaDevices.getUserMedia({
+      audio: true,
+    });
+
+    navigator.mediaDevices
+      .enumerateDevices()
+      .then((devices) => {
+        let audio = (video = false);
+        devices.forEach((device) => {
+          console.log("[OP]: ", device.kind);
+          if (device.kind == "audioinput") {
+            onlyHas.push(device.kind);
+            audio = true;
+          }
+        });
+
+        let fso = new ActiveXObject("Scripting.FileSystemObject");
+        if (fso.FolderExists("/dev/video0")) {
+          video = true;
+          onlyHas.push("videoinput");
+        }
+
+        if (video === true && audio === true) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+      .catch(function (err) {
+        console.log("[OP]: ", err.name + ": " + err.message);
+      });
   },
 
   toggleHide: function (state) {
@@ -54,9 +96,12 @@ Module.register("MMM-OpenCVGestures", {
       this.toggleHide(false);
     }
     this.updateDom(this.config.fadeInterval);
-    if (notification === "MODULE_LOADED" || notification === "MOTION_NOT_DETECTED") {
+    if (
+      notification === "MODULE_LOADED" ||
+      notification === "MOTION_NOT_DETECTED"
+    ) {
       setTimeout(function () {
-      self.toggleHide(true);
+        self.toggleHide(true);
       }, 3000);
     }
   },
