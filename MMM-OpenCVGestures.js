@@ -29,6 +29,7 @@ Module.register("MMM-OpenCVGestures", {
     thisModule = MM.getModules().withClass(this.name);
     if (thisModule && thisModule.length === 1) {
       var module = thisModule[0];
+      console.log(this.config.hidden);
       if (state === true && this.config.hidden === false) {
         console.log("[OP]: MMM-OpenCVGestures hidden.");
         module.hide(this.config.fadeInterval);
