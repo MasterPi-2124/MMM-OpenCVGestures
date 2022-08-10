@@ -1,7 +1,12 @@
 const NodeHelper = require("node_helper");
 const Log = require("logger");
+var request = require('request'); // "Request" library
 const { spawn, exec } = require("child_process");
 const fs = require("fs");
+
+
+var client_id = '1f9d636a52774c4495c1b51aab29b732'; // Your client id
+var client_secret = '5fbcdbd89dd247529b709d8ccf360ea1'; // Your secret
 
 const TOKEN     = 'BQDg1jrdcILH_OvK0YUqSFFtSJ2S32LS_mswoN5v_d1O9C41VcUrdJN8qUZ0bW-ads4Q59FBeBCt-VKxI5BJurXWF4inGVuhCUiWz29QIR9tAyopObrAKVX1-zrMfQ_X_W8OUYMWzVX3EJCiTg_TroqxZLK_GRDoN9vxCQ3QwEIKw4D1L6voccZ4s81gkrZw7v_-hxA';
 const DEVICE_ID = '9f8afb577bcdb6041b6ac64d8a258a7f2682c24c';
@@ -28,6 +33,26 @@ function generateCmdString(method, url, token, state) {
   return ('curl -X "' + method +'" "' + url + '?device_id=' + DEVICE_ID + '" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer ' + token + '"');
 }
 
+function generateAccessToken(refresh_token, callback) {
+
+  // requesting access token from refresh token
+  var refresh_token = refresh_token;
+  var authOptions = {
+    url: 'https://accounts.spotify.com/api/token',
+    headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
+    form: {
+      grant_type: 'refresh_token',
+      refresh_token: refresh_token
+    },
+    json: true
+  };
+  request.post(authOptions, function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+      var access_token = body.access_token;
+      return callback(access_token);
+    }
+  });
+};
 
 function spotify_api_func(s) {
   if(s.localeCompare('spotify') == 0) return;
