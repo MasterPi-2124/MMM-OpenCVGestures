@@ -63,14 +63,7 @@ if __name__ == "__main__":
         vid = cv2.VideoCapture(0)
         f.write("[OP]: Motion detected.\n")
         print("MOTION_DETECTED", flush=True, end='')
-        sleep(1)
-        if GPIO.input(17) == GPIO.LOW:
-            print("LED_ON", flush=True, end='')
-            GPIO.output(17, GPIO.HIGH) # Turn on
-        else:
-            print("LED_OFF", flush=True, end='')
-            GPIO.output(17, GPIO.LOW) # Turn off
-            
+
         sleep(delayTime)
 
         print("PICTURE_CAPTURED", flush=True, end='')
@@ -80,6 +73,14 @@ if __name__ == "__main__":
         vid.release()
 
         res = predict(frame)
+        sleep(1)
+        if res == "PAPER":
+            if GPIO.input(17) == GPIO.LOW:
+                print("LED_ON", flush=True, end='')
+                GPIO.output(17, GPIO.HIGH) # Turn on
+            else:
+                print("LED_OFF", flush=True, end='')
+                GPIO.output(17, GPIO.LOW) # Turn off
 
         d1_stop = perf_counter()
         f.write("[OP]: Process result: {}\n".format(res))

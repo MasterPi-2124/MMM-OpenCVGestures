@@ -1,4 +1,5 @@
 const { exec } = require('child_process');
+const fetch = require("fetch");
 
 const Spotify = function() {
   let client_id = '1f9d636a52774c4495c1b51aab29b732'; // Your client id
