@@ -1,8 +1,8 @@
+const NodeHelper = require("node_helper");
 const Log = require("logger");
 const { spawn, exec } = require("child_process");
 const fs = require("fs");
 const Spotify = require("./spotify");
-const { isStringObject } = require("util/types");
 
 module.exports = NodeHelper.create({
   
