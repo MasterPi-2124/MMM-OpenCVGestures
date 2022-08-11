@@ -12,6 +12,11 @@ from time import sleep
 from time import perf_counter
 import sys
 from gpiozero import MotionSensor
+import RPi.GPIO as GPIO    # Import Raspberry Pi GPIO library
+
+GPIO.setwarnings(False) 
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(17, GPIO.OUT, initial=GPIO.LOW)
 
 print("MODULE_HELLO", flush=True, end='')
 
@@ -58,15 +63,14 @@ if __name__ == "__main__":
         vid = cv2.VideoCapture(0)
         f.write("[OP]: Motion detected.\n")
         print("MOTION_DETECTED", flush=True, end='')
-
-        sleep(delayTime)
-
-        x = x + 1
-        if (x % 2):
+	if GPIO.input(17) == GPIO.LOW:
             print("LED_ON", flush=True, end='')
+            GPIO.output(17, GPIO.HIGH) # Turn on
         else:
             print("LED_OFF", flush=True, end='')
-        sleep(2)
+            GPIO.output(17, GPIO.LOW) # Turn off
+            
+        sleep(delayTime)'
 
         print("PICTURE_CAPTURED", flush=True, end='')
         d1_start = perf_counter()
