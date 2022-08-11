@@ -73,7 +73,7 @@ if __name__ == "__main__":
         vid.release()
 
         res = predict(frame)
-
+        sleep(1)
         if x % 3 == 0:
             res = "PAPER"
         elif x % 3 == 1:
