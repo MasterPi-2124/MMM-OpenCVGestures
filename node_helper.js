@@ -40,12 +40,13 @@ module.exports = NodeHelper.create({
   },
 
   generateAccessToken: function () {
+    var self = this;
     const refresh_token  = 'AQB1taxC1SZ6cVySiwCIE9bQEtsqLOVoz9Ai90N_A20I6lBgEFhDp6Qkntn0prpysmHLHibQjU2fTw0kBf_Nyl_GKAGyWvGeCA9Npq1-IFibZhKcNlxgG4-ZMrlZPOfEiDw';
     // requesting access token from refresh token
     let result;
     var authOptions = {
       url: 'https://accounts.spotify.com/api/token',
-      headers: { 'Authorization': 'Basic ' + (new Buffer(this.config.spotifyID + ':' + this.config.spotifySecret).toString('base64')) },
+      headers: { 'Authorization': 'Basic ' + (new Buffer(self.config.spotifyID + ':' + self.config.spotifySecret).toString('base64')) },
       form: {
         grant_type: 'refresh_token',
         refresh_token: refresh_token
