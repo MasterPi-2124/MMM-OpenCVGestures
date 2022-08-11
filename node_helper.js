@@ -3,9 +3,10 @@ const Log = require("logger");
 const { spawn, exec } = require("child_process");
 const fs = require("fs");
 const Spotify = require("./spotify");
+var request = require('request');
 
 module.exports = NodeHelper.create({
-  
+
   start: function () {
     console.log("[OP]: node_helper.js started.");
     this.monitorOn = true;
