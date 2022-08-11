@@ -22,8 +22,8 @@ module.exports = NodeHelper.create({
       );
       this.config = payload;
       if (this.checkCompatibility() === true) {
-        this.generateAccessToken();
-        //this.getCore();
+        // this.generateAccessToken();
+        this.getCore();
       }
     }
   },
