@@ -63,6 +63,7 @@ if __name__ == "__main__":
         vid = cv2.VideoCapture(0)
         f.write("[OP]: Motion detected.\n")
         print("MOTION_DETECTED", flush=True, end='')
+        sleep(1)
         if GPIO.input(17) == GPIO.LOW:
             print("LED_ON", flush=True, end='')
             GPIO.output(17, GPIO.HIGH) # Turn on
