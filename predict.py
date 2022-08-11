@@ -72,6 +72,8 @@ if __name__ == "__main__":
         cv2.imwrite('{}/savedImage.png'.format(working_directory), frame)
         vid.release()
 
+        res = predict(frame)
+
         if x % 3 == 0:
             res = "PAPER"
         elif x % 3 == 1:
@@ -80,15 +82,13 @@ if __name__ == "__main__":
             res = "SCISSOR"
         x = x + 1
 
-        # res = predict(frame)
-
         d1_stop = perf_counter()
         f.write("[OP]: Process result: {}\n".format(res))
 
         f.write("[OP]: Module processed in {} second.\n".format(d1_stop - d1_start))
         print("PROCESS_OK_{}".format(res), flush=True, end='')
-        sleep(1.5)
-        
+        sleep(1)
+
         if res == "PAPER" and GPIO.input(17) == GPIO.LOW:
             print("LED_ON", flush=True, end='')
             GPIO.output(17, GPIO.HIGH) # Turn on
