@@ -87,7 +87,8 @@ if __name__ == "__main__":
 
         f.write("[OP]: Module processed in {} second.\n".format(d1_stop - d1_start))
         print("PROCESS_OK_{}".format(res), flush=True, end='')
-        sleep(1)
+        sleep(1.5)
+        
         if res == "PAPER" and GPIO.input(17) == GPIO.LOW:
             print("LED_ON", flush=True, end='')
             GPIO.output(17, GPIO.HIGH) # Turn on
