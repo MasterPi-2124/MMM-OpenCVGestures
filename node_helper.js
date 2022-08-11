@@ -157,7 +157,6 @@ module.exports = NodeHelper.create({
     log.stdout.on("data", function (data) {
       message = data.toString();
       console.log("[OP]: ", message);
-      message = "PROCESS_OK_PAPER";
       switch (message) {
         case "MODULE_HELLO":
           self.sendSocketNotification(message, "OpenCV module started!");
