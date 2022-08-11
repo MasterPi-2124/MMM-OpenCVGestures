@@ -45,13 +45,14 @@ module.exports = NodeHelper.create({
     let result;
     var authOptions = {
       url: 'https://accounts.spotify.com/api/token',
-      headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
+      headers: { 'Authorization': 'Basic ' + (new Buffer(this.config.spotifyID + ':' + this.config.spotifySecret).toString('base64')) },
       form: {
         grant_type: 'refresh_token',
         refresh_token: refresh_token
       },
       json: true
     };
+    console.log(authOptions);
     request.post(authOptions, function(error, response, body) {
       if (!error && response.statusCode === 200) {
         var access_token = body.access_token;
