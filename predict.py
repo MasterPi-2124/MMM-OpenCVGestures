@@ -81,20 +81,20 @@ if __name__ == "__main__":
         x = x + 1
 
         # res = predict(frame)
-        if res == "PAPER" and GPIO.input(17) == GPIO.LOW:
-                print("LED_ON", flush=True, end='')
-                GPIO.output(17, GPIO.HIGH) # Turn on
-        if res == "ROCK" and GPIO.input(17) == GPIO.HIGH:
-                print("LED_OFF", flush=True, end='')
-                GPIO.output(17, GPIO.LOW) # Turn off
-        sleep(1)
 
         d1_stop = perf_counter()
         f.write("[OP]: Process result: {}\n".format(res))
 
         f.write("[OP]: Module processed in {} second.\n".format(d1_stop - d1_start))
         print("PROCESS_OK_{}".format(res), flush=True, end='')
-        sleep(1.5)
+        sleep(1)
+        if res == "PAPER" and GPIO.input(17) == GPIO.LOW:
+            print("LED_ON", flush=True, end='')
+            GPIO.output(17, GPIO.HIGH) # Turn on
+        if res == "ROCK" and GPIO.input(17) == GPIO.HIGH:
+            print("LED_OFF", flush=True, end='')
+            GPIO.output(17, GPIO.LOW) # Turn off
+        sleep(0.2)
 
         pir.wait_for_no_motion()
         t1_stop = perf_counter()

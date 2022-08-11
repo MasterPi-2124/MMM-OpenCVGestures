@@ -205,6 +205,12 @@ module.exports = NodeHelper.create({
           );
           self.triggerScreen("off");
           break;
+        case "LED_ON":
+          self.sendSocketNotification(message, "The LED is on!");
+          break;
+        case "LED_OFF":
+          self.sendSocketNotification(message, "The LED is off!");
+          break;
       }
     });
   },
