@@ -81,13 +81,13 @@ if __name__ == "__main__":
         x = x + 1
 
         # res = predict(frame)
-        sleep(1)
         if res == "PAPER" and GPIO.input(17) == GPIO.LOW:
                 print("LED_ON", flush=True, end='')
                 GPIO.output(17, GPIO.HIGH) # Turn on
         if res == "ROCK" and GPIO.input(17) == GPIO.HIGH:
                 print("LED_OFF", flush=True, end='')
                 GPIO.output(17, GPIO.LOW) # Turn off
+        sleep(1)
 
         d1_stop = perf_counter()
         f.write("[OP]: Process result: {}\n".format(res))
