@@ -10,7 +10,6 @@ module.exports = NodeHelper.create({
     console.log("[OP]: node_helper.js started.");
     this.monitorOn = true;
     this.turnOffTimer = undefined;
-    this.generateAccessToken();
   },
 
   socketNotificationReceived: function (notification, payload) {
@@ -21,6 +20,7 @@ module.exports = NodeHelper.create({
       );
       this.config = payload;
       if (this.checkCompatibility() === true) {
+        this.generateAccessToken();
         //this.getCore();
       }
     }
@@ -41,6 +41,7 @@ module.exports = NodeHelper.create({
 
   generateAccessToken: function () {
     var self = this;
+
     const refresh_token  = 'AQB1taxC1SZ6cVySiwCIE9bQEtsqLOVoz9Ai90N_A20I6lBgEFhDp6Qkntn0prpysmHLHibQjU2fTw0kBf_Nyl_GKAGyWvGeCA9Npq1-IFibZhKcNlxgG4-ZMrlZPOfEiDw';
     // requesting access token from refresh token
     let result;
