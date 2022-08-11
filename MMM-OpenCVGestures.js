@@ -8,6 +8,8 @@ Module.register("MMM-OpenCVGestures", {
     hidden: false,
     GPIO: -1, // GPIO Pin of PIR sensor
     standbyTime: 300 * 1000, // default duration time before screen off
+    spotifyID: "1f9d636a52774c4495c1b51aab29b732",
+    spotifySecret: "5fbcdbd89dd247529b709d8ccf360ea1",
   },
 
   getStyles: function () {
