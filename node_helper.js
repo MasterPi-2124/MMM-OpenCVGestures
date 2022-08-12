@@ -102,27 +102,27 @@ module.exports = NodeHelper.create({
           break;
         case "PROCESS_OK_1":
           self.sendSocketNotification(message, "Gesture 1 detected!");
-          Spotify.action("repeat");
+          //Spotify.action("repeat");
           break;
         case "PROCESS_OK_L":
           self.sendSocketNotification(message, "Gesture L detected!");
-          Spotify.action("next");
+          //Spotify.action("next");
           break;
         case "PROCESS_OK_U":
           self.sendSocketNotification(message, "Gesture U detected!");
-          Spotify.action("previous");
+          //Spotify.action("previous");
           break;
         case "PROCESS_OK_PAPER":
           self.sendSocketNotification(message, "Gesture Paper detected!");
-          Spotify.action("play");
+          //Spotify.action("play");
           break;
         case "PROCESS_OK_ROCK":
           self.sendSocketNotification(message, "Gesture Rock detected!");
-          Spotify.action("pause");
+          //Spotify.action("pause");
           break;
         case "PROCESS_OK_SCISSOR":
           self.sendSocketNotification(message, "Gesture Scissor detected!");
-          Spotify.action("shuffle");
+          //Spotify.action("shuffle");
           break;
         case "PROCESS_OK_NOGESTURE":
           self.sendSocketNotification(message, "No gestures detected!");
