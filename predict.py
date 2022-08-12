@@ -83,7 +83,7 @@ if __name__ == "__main__":
         if GPIO.input(17) == GPIO.LOW:
             print("LED_ON", flush=True, end='')
             GPIO.output(17, GPIO.HIGH) # Turn on
-        if GPIO.input(17) == GPIO.HIGH:
+        elif GPIO.input(17) == GPIO.HIGH:
             print("LED_OFF", flush=True, end='')
             GPIO.output(17, GPIO.LOW) # Turn off
         sleep(0.2)
