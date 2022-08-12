@@ -1,48 +1,140 @@
-const { exec } = require('child_process');
-const fetch = require("fetch");
+const { exec } = require("child_process");
+const got = require("got");
 
-const Spotify = function() {
-  let client_id = '1f9d636a52774c4495c1b51aab29b732'; // Your client id
-  let client_secret = '5fbcdbd89dd247529b709d8ccf360ea1'; // Your secret
-  let cmd = 'spotify';
-  let pre_shuffer_state = false;
-  let pre_repeat_state = "track";
-  let cur_shuffer_state = true;
-  let cur_repeat_state = "off";
-  let token = 'token';
-  
-  const REFRESH_TOKEN   = 'AQB1taxC1SZ6cVySiwCIE9bQEtsqLOVoz9Ai90N_A20I6lBgEFhDp6Qkntn0prpysmHLHibQjU2fTw0kBf_Nyl_GKAGyWvGeCA9Npq1-IFibZhKcNlxgG4-ZMrlZPOfEiDw';
-  const DEVICE_ID       = '9f8afb577bcdb6041b6ac64d8a258a7f2682c24c';
-  const SPOTIFY_PLAY    = 'https://api.spotify.com/v1/me/player/play';
-  const SPOTIFY_PAUSE   = 'https://api.spotify.com/v1/me/player/pause';
-  const SPOTIFY_NEXT    = 'https://api.spotify.com/v1/me/player/next';
-  const SPOTIFY_BACK    = 'https://api.spotify.com/v1/me/player/previous';
-  const SPOTIFY_REPEAT  = 'https://api.spotify.com/v1/me/player/repeat'
-  const SPOTIFY_SHUFFER = 'https://api.spotify.com/v1/me/player/shuffle'
-  const METHOD_PUT  = 'PUT';
-  const METHOD_POST = 'POST';
+const Spotify = function () {
+  let isRepeat;
+  let isShuffle;
+  let accessToken;
+  let isActive = false;
 
-  const generateCmdString = (method, url, token, state) => {
-    if(state.localeCompare('off') == 0 || state.localeCompare('track') == 0 || state.localeCompare('true') == 0 || state.localeCompare('false') == 0 || state.localeCompare('context') == 0) {
-      return ('curl -X "' + method +'" "' + url + '?device_id=' + DEVICE_ID + '&state=' + state + '" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer ' + token + '"');
-    }
-    return ('curl -X "' + method +'" "' + url + '?device_id=' + DEVICE_ID + '" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer ' + token + '"');
-  };
+  const DEVICE_ID = "9f8afb577bcdb6041b6ac64d8a258a7f2682c24c";
 
-  const spotify_api_func = (spotify) => {
-    if(spotify.localeCompare('spotify') == 0) return;
-    exec((spotify), (error, stdout, stderr) => {
-        if (error) {
-          console.error(`error: ${error.message}`);
-          return;
-        }
-        if (stderr) {
-          console.error(`stderr: ${stderr}`);
-          return;
-        }
-        console.log(`stdout:\n${stdout}`);
+  const getAccessToken = async () => {
+    const refresh_token =
+      "AQB1taxC1SZ6cVySiwCIE9bQEtsqLOVoz9Ai90N_A20I6lBgEFhDp6Qkntn0prpysmHLHibQjU2fTw0kBf_Nyl_GKAGyWvGeCA9Npq1-IFibZhKcNlxgG4-ZMrlZPOfEiDw";
+    // requesting access token from refresh token
+    var authOptions = {
+      headers: {
+        Authorization:
+          "Basic " +
+          new Buffer.from(
+            this.config.spotifyID + ":" + this.config.spotifySecret
+          ).toString("base64"),
+      },
+      form: {
+        grant_type: "refresh_token",
+        refresh_token: refresh_token,
+      },
+    };
+
+    let res = await got
+      .post("https://accounts.spotify.com/api/token", authOptions)
+      .json()
+      .catch((error) => {
+        console.log(error.response.body);
       });
+    let accessToken = res.access_token;
+    console.log(accessToken);
+    return accessToken;
   };
-}
+
+  const action = (command) => {
+    if (isActive === false) {
+      accessToken = getAccessToken();
+      isActive = true;
+    } else {
+      switch (command) {
+        case "repeat":
+          if (isRepeat === "off") {
+            isRepeat = "track";
+          } else isRepeat = "off";
+          var cmd =
+            'curl -X "' +
+            "PUT" +
+            '" "' +
+            "https://api.spotify.com/v1/me/player/repeat?device_id=" +
+            DEVICE_ID +
+            "&state=" +
+            state +
+            '" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer ' +
+            accessToken +
+            '"';
+          spotify_api_func(cmd);
+          break;
+        case "shuffle":
+          if (isShuffle === true) {
+            isShuffle = false;
+          } else isShuffle = true;
+          var cmd =
+            'curl -X "' +
+            "PUT" +
+            '" "' +
+            "https://api.spotify.com/v1/me/player/shuffle?device_id=" +
+            DEVICE_ID +
+            "&state=" +
+            state +
+            '" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer ' +
+            accessToken +
+            '"';
+          spotify_api_func(cmd);
+          break;
+        case "pause":
+          var cmd =
+            'curl -X "PUT" "' +
+            "https://api.spotify.com/v1/me/player/pause?device_id=" +
+            DEVICE_ID +
+            '" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer ' +
+            accessToken +
+            '"';
+          spotify_api_func(cmd);
+          break;
+        case "play":
+          var cmd =
+            'curl -X "PUT" "' +
+            "https://api.spotify.com/v1/me/player/play?device_id=" +
+            DEVICE_ID +
+            '" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer ' +
+            accessToken +
+            '"';
+          spotify_api_func(cmd);
+          break;
+        case "previous":
+          var cmd =
+            'curl -X "PUT" "' +
+            "https://api.spotify.com/v1/me/player/previous?device_id=" +
+            DEVICE_ID +
+            '" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer ' +
+            accessToken +
+            '"';
+          spotify_api_func(cmd);
+          break;
+        case "next":
+          var cmd =
+            'curl -X "PUT" "' +
+            "https://api.spotify.com/v1/me/player/next?device_id=" +
+            DEVICE_ID +
+            '" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer ' +
+            accessToken +
+            '"';
+          spotify_api_func(cmd);
+          break;
+      }
+    }
+  };
+
+  const spotify_api_func = (command) => {
+    exec(command, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`error: ${error.message}`);
+        return;
+      }
+      if (stderr) {
+        console.error(`stderr: ${stderr}`);
+        return;
+      }
+      console.log(`stdout:\n${stdout}`);
+    });
+  };
+};
 
 module.exports = Spotify;
