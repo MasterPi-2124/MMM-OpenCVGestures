@@ -4,6 +4,6 @@
   "description": "Basic examples of the Spotify authorization flows through OAuth 2",
   "version": "0.0.2",
   "dependencies": {
-    "request": "~2.83.0"
+    "got": "^12.3.1"
   }
 }

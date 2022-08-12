@@ -20,7 +20,7 @@ GPIO.setup(17, GPIO.OUT, initial=GPIO.LOW)
 
 print("MODULE_HELLO", flush=True, end='')
 
-def build_model():
+def buildModel():
     img_size = (224, 224)
     base_model = MobileNetV2(weights=None, include_top=False, input_shape=img_size+(3,), alpha=0.75)
     x = base_model.get_layer('block_12_project').output
@@ -49,9 +49,8 @@ if __name__ == "__main__":
     f.write("Logging for session {}\n----------------------------\n".format(datetime.now().strftime("%d/%m/%Y %H:%M:%S")))
 
     m1_start = perf_counter()
-    model_link = '{}/result.h5'.format(working_directory)
-    model = build_model()
-    model.load_weights(model_link)
+    model = buildModel()
+    model.load_weights('{}/result.h5'.format(working_directory))
     m1_stop = perf_counter()
     f.write("[OP]: Module loaded in {} second.\n".format(m1_stop - m1_start))
     print("MODULE_LOADED", flush=True, end='')
@@ -73,14 +72,6 @@ if __name__ == "__main__":
         vid.release()
 
         res = predict(frame)
-        sleep(1)
-        if x % 3 == 0:
-            res = "PAPER"
-        elif x % 3 == 1:
-            res = "ROCK"
-        else:
-            res = "SCISSOR"
-        x = x + 1
 
         d1_stop = perf_counter()
         f.write("[OP]: Process result: {}\n".format(res))
@@ -89,10 +80,10 @@ if __name__ == "__main__":
         print("PROCESS_OK_{}".format(res), flush=True, end='')
         sleep(1)
 
-        if res == "PAPER" and GPIO.input(17) == GPIO.LOW:
+        if GPIO.input(17) == GPIO.LOW:
             print("LED_ON", flush=True, end='')
             GPIO.output(17, GPIO.HIGH) # Turn on
-        if res == "ROCK" and GPIO.input(17) == GPIO.HIGH:
+        if GPIO.input(17) == GPIO.HIGH:
             print("LED_OFF", flush=True, end='')
             GPIO.output(17, GPIO.LOW) # Turn off
         sleep(0.2)
