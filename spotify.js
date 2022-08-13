@@ -55,11 +55,10 @@ const Spotify = function () {
             "https://api.spotify.com/v1/me/player/repeat?device_id=" +
             DEVICE_ID +
             "&state=" +
-            state +
+            isRepeat +
             '" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer ' +
             accessToken +
             '"';
-          spotify_api_func(cmd);
           break;
         case "shuffle":
           if (isShuffle === true) {
@@ -72,11 +71,10 @@ const Spotify = function () {
             "https://api.spotify.com/v1/me/player/shuffle?device_id=" +
             DEVICE_ID +
             "&state=" +
-            state +
+            isShuffle +
             '" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer ' +
             accessToken +
             '"';
-          spotify_api_func(cmd);
           break;
         case "pause":
           var cmd =
@@ -86,7 +84,6 @@ const Spotify = function () {
             '" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer ' +
             accessToken +
             '"';
-          spotify_api_func(cmd);
           break;
         case "play":
           var cmd =
@@ -96,7 +93,6 @@ const Spotify = function () {
             '" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer ' +
             accessToken +
             '"';
-          spotify_api_func(cmd);
           break;
         case "previous":
           var cmd =
@@ -106,7 +102,6 @@ const Spotify = function () {
             '" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer ' +
             accessToken +
             '"';
-          spotify_api_func(cmd);
           break;
         case "next":
           var cmd =
@@ -116,9 +111,10 @@ const Spotify = function () {
             '" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer ' +
             accessToken +
             '"';
-          spotify_api_func(cmd);
           break;
       }
+      
+      spotify_api_func(cmd);
     }
   };
 
