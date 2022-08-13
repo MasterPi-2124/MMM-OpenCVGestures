@@ -2,7 +2,6 @@ const NodeHelper = require("node_helper");
 const { spawn, exec } = require("child_process");
 const fs = require("fs");
 //const Spotify = require("./spotify");
-// const got = require("got");
 
 module.exports = NodeHelper.create({
   start: function () {
