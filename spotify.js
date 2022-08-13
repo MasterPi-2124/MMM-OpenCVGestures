@@ -55,7 +55,7 @@ const Spotify = function () {
             "https://api.spotify.com/v1/me/player/repeat?device_id=" +
             DEVICE_ID +
             "&state=" +
-            state +
+            isRepeat +
             '" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer ' +
             accessToken +
             '"';
@@ -72,7 +72,7 @@ const Spotify = function () {
             "https://api.spotify.com/v1/me/player/shuffle?device_id=" +
             DEVICE_ID +
             "&state=" +
-            state +
+            isShuffle +
             '" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer ' +
             accessToken +
             '"';

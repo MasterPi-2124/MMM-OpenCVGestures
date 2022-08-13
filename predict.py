@@ -72,13 +72,7 @@ if __name__ == "__main__":
         vid.release()
 
         res = predict(frame)
-
-        d1_stop = perf_counter()
-        f.write("[OP]: Process result: {}\n".format(res))
-
-        f.write("[OP]: Module processed in {} second.\n".format(d1_stop - d1_start))
-        print("PROCESS_OK_{}".format(res), flush=True, end='')
-        sleep(1)
+        sleep(2)
 
         if GPIO.input(17) == GPIO.LOW:
             print("LED_ON", flush=True, end='')
@@ -86,7 +80,14 @@ if __name__ == "__main__":
         elif GPIO.input(17) == GPIO.HIGH:
             print("LED_OFF", flush=True, end='')
             GPIO.output(17, GPIO.LOW) # Turn off
-        sleep(2)
+        sleep(1)
+
+        d1_stop = perf_counter()
+        f.write("[OP]: Process result: {}\n".format(res))
+
+        f.write("[OP]: Module processed in {} second.\n".format(d1_stop - d1_start))
+        print("PROCESS_OK_{}".format(res), flush=True, end='')
+        sleep(1)
 
         pir.wait_for_no_motion()
         t1_stop = perf_counter()
