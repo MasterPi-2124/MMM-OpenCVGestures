@@ -30,6 +30,7 @@ def my_IoU(y_true, y_pred):
     return IoU
 
 def segment(model_segment,img_input):
+    img = img_input
     img_input.astype('float32')
     img_input = cv2.resize(img_input, (256, 256))
     img_input = img_input / 255.0 * 2 - 1
@@ -42,7 +43,6 @@ def segment(model_segment,img_input):
     pred1 = np.where(pred1 > 0.3, 255, 0)
     pred1 = np.uint8(pred1)
     pred1 = cv2.medianBlur(pred1, 3)
-    img = cv2.imread(image_path)
     origin_height, origin_width = img.shape[0], img.shape[1]
     pred1 = cv2.resize(pred1, (origin_width, origin_height), cv2.INTER_NEAREST)
     contours, hierarchy = cv2.findContours(pred1, 1, 2)
