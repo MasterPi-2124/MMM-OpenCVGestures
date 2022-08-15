@@ -71,7 +71,7 @@ def segment(model_segment,img_input):
                                                                                                       0.1 * (x2_final - x1_final)))]
     result = cv2.resize(result, (256, 256))
 
-    # cv2.imwrite('segment.png', result)
+    cv2.imwrite('{}/segment.png'.format(working_directory), result)
     return result
 
 
@@ -96,18 +96,16 @@ def predict(img):
     
     #print(img.shape)
     y = model_classify.predict(img)
-    print(classes[np.argmax(y[0])])
-    return
+    res = classes[np.argmax(y[0])]
+    return res
 
 
 if __name__ == "__main__":
     working_directory = os.path.dirname(os.path.abspath(__file__))
-    img_path = '{}/savedImage.png'.format(working_directory)
-    img_seg = '{}/segment.png'.format(working_directory)
     model_link = '{}/class_model.h5'.format(working_directory)
     model_classify = build_classify_model()
     model_classify.load_weights(model_link)
-    model_segment = load_model('seg_model.h5', custom_objects={'my_IoU': my_IoU})
+    model_segment = load_model('{}/seg_model.h5'.format(working_directory), custom_objects={'my_IoU': my_IoU})
 
     delayTime = int(sys.argv[1])
     gpio = int(sys.argv[2])
