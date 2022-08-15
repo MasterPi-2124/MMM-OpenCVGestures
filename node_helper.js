@@ -104,8 +104,8 @@ module.exports = NodeHelper.create({
           self.sendSocketNotification(message, "Gesture 1 detected!");
           //Spotify.action("repeat");
           break;
-        case "PROCESS_OK_L":
-          self.sendSocketNotification(message, "Gesture L detected!");
+        case "PROCESS_OK_LIKE":
+          self.sendSocketNotification(message, "Gesture LIKE detected!");
           //Spotify.action("next");
           break;
         case "PROCESS_OK_U":
