@@ -87,7 +87,7 @@ def build_classify_model():
     model = Model(inputs=base_model.input, outputs=output)
     return model
 
-def predict(img):
+def predict(frame):
     img = segment(model_segment, frame)
     classes = ['PAPER','LIKE','NOGESTURES']
     img = cv2.resize(img, (224, 224))
