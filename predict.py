@@ -63,7 +63,7 @@ def segment(model_segment,img_input):
                 x2_final = x+w
         if y+h > y2_final:
                 y2_final = y+h
-    result = cv2.cvtColor(pred1, cv2.COLOR_GREY2RGB)
+    result = cv2.cvtColor(pred1,cv2.COLOR_GRAY2RGB)
     if check == 1:
        result = result[max(0, y1_final - int(0.1 * (y2_final - y1_final))):min(origin_height, y2_final + int(
             0.1 * (y2_final - y1_final))), max(0, x1_final - int(0.1 * (x2_final - x1_final))):min(origin_width,
